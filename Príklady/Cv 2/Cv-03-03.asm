@@ -25,7 +25,7 @@ start:
 	jmp start
 
 nula:
-	smi 0x03,A
+	smi 0x03,A ;nastavi vystup AB na prvy parameter, to co je ako druhy parameter, tak to ma teraz netrapi
 	jmp start
 jeden:
 	smi 0x9F,A
