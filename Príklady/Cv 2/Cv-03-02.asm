@@ -22,6 +22,7 @@ start:
 	je devet
 	cmi d, 48
 	je nula
+	jmp start
 
 nula:
 	mvi A, 0x03
