@@ -108,7 +108,7 @@ OpakovatkoPrvyriadok:
 	ani 	a, 00001111b	; upravi sa register na pozadovany tvar ako vyssie
 	cmp 	a, b		; v B je ulozena poloha stlpca ktora je zmacknuta, tu sa overuje ci je stale to iste tlacidlo zmacknute
 	je OpakovatkoPrvyriadok ;ak je stlačené tak sa opakuje Opakovatko a ked nie skace na navestie L1
-	jmp L1
+	jmp Start
 OpakovatkoDruhy:
 	inn	a,110111b		;L2 bude do vtedy kým je stlačené tlačilo
 	ani 	a, 00001111b
@@ -133,20 +133,20 @@ NajdiKlavesuPrvyRiadok:
 	mmr 	b, c  	;z pamete sa vyberie prislusna hodnota na hoverenie (to je ten stlpec 0111b} je to ulozene hore v pameti
 	;na zciatku ciklu je c nulove ale postupne dalej a dalej sa zvisuje
 	cmp 	a, b  	;porovnava sa ci je register A (realne stlacene tlacidlo) a B (to kotore overujeme) su rovnake
-	je PokracujPrvy ; ak ano tak sa skoci na navestie PokracujPrvy
+	je KoniecLoopPrvy ; ak ano tak sa skoci na navestie PokracujPrvy
 	inc 	c		;ak nie tak sa zvisi C o 1 to znamena pri dalsom opakovany budeme vyberat dalsi prvok z pamete
 	inc 	d		;zvisi sa D (tu je acii hodnota cisla ktora sa vypisuje) o jeden
 	;pretoze cisla na klavesnici stupaju o jeden tak mne pri overovani staci vzdy zvisit aj acii kod o jeden
 	; cize ak som zmackol 3 klavesu v poradi tak kym to cyklus odhali tak prejde 3 krat a to aj nastavi aci na hodnotu 3
 	jne NajdiKlavesuPrvyRiadok 	;ak pri cmp a,b neprislo na zhodu cyklus sa zopakuje
 
+	KoniecLoopPrvy:
+	jmp PripocitajRiadok1
 	
 	PokracujPrvy:
-	sbi 	d,'0'		;prerobenie znaku na cislo
-	adi 	d, 4		;data su ulozene az od 4 
-	mmr 	c, d
-	;out 01111b,c		 	;vypise na obrazovku
-	;xor c,c 		 ;vycistenie si indexi
+	pop 	C
+	pop	A
+	xor 	C, C
 	jmp OpakovatkoPrvyriadok ; skoci sa na opakovatko 
 		;lebo tento progam prebehne len v ram ci jedneho kliku viac krat a na konzolu by vypisalo n cisel
 
@@ -200,3 +200,47 @@ NajdiKlavesuStvrtyRiadok:
 	;out 01111b,c
 	;xor c,c ;vycistenie si indexi
 	jmp OpakovatkoStvrty
+
+
+PripocitajRiadok1:
+	pus	A
+	pus	C
+
+	mov 	A, D
+	ldr	C, A ;ziskame z RAM hodnoto jednotiek
+	inc 	C ; zvysime jednotky
+	str	A,C ; ulozime jednotky
+	cmi 	C, 10	;porovnam ci jedontky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
+	jne PokracujPrvy
+
+	mvi	C, 0 ; vynulujem jednotky
+	str	A, C ; ulozim jednotky
+	adi	A, 20 ; premapujeme na desiatky
+	ldr	C, A ; nacitam desiatky
+	inc 	C
+	str	A,C ; ulozime desiadky
+	cmi 	C, 10	;porovnam ci desiadky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
+	jne PokracujPrvy
+
+	mvi	C, 0 ; vynulujem desiadky
+	str	A, C ; ulozim desiadky
+	adi	A, 20 ; premapujeme na stovky
+	ldr	C, A ; nacitam stovky
+	inc 	C
+	str	A,C ; ulozime stovky
+	cmi 	C, 10	;porovnam ci stovky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
+	jne PokracujPrvy
+
+	mvi	C, 0 ; vynulujem stovky
+	str	A, C ; ulozim stovky
+	adi	A, 20 ; premapujeme na tisicky
+	ldr	C, A ; nacitam tisicky
+	inc 	C
+	str	A,C ; ulozime tisicky
+	cmi 	C, 10	;porovnam ci desiadky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
+	jne Koniec
+
+
+Koniec: 
+
+	
