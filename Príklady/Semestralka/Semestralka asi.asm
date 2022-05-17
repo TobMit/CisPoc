@@ -170,18 +170,18 @@ NajdiKlavesuDruhyRiadok:
 NajdiKlavesuTretiRiadok:
 	mmr 	b, c
 	cmp 	a, b
-	je PokracujTreti
+	je KoniecLooTreti
 	inc 	c
 	inc 	d
 	jne NajdiKlavesuTretiRiadok
 
+	KoniecLooTreti:
+	jmp PripocitajRiadok3
 	
 	PokracujTreti:
-	sbi 	d,'0'
-	adi 	d, 4
-	;mmr c, d
-	;out 01111b,c
-	xor 	c,c ;vycistenie si indexi
+	pop 	C
+	pop	A
+	xor 	C, C
 	jmp OpakovatkoTreti
 
 NajdiKlavesuStvrtyRiadok:
@@ -288,7 +288,7 @@ PripocitajRiadok3:
 	inc 	C ; zvysime jednotky
 	str	A,C ; ulozime jednotky
 	cmi 	C, 10	;porovnam ci jedontky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
-	jne PokracujPrvy
+	jne PokracujTreti
 
 	mvi	C, 0 ; vynulujem jednotky
 	str	A, C ; ulozim jednotky
@@ -297,7 +297,7 @@ PripocitajRiadok3:
 	inc 	C
 	str	A,C ; ulozime desiadky
 	cmi 	C, 10	;porovnam ci desiadky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
-	jne PokracujPrvy
+	jne PokracujTreti
 
 	mvi	C, 0 ; vynulujem desiadky
 	str	A, C ; ulozim desiadky
@@ -306,7 +306,7 @@ PripocitajRiadok3:
 	inc 	C
 	str	A,C ; ulozime stovky
 	cmi 	C, 10	;porovnam ci stovky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
-	jne PokracujPrvy
+	jne PokracujTreti
 
 	mvi	C, 0 ; vynulujem stovky
 	str	A, C ; ulozim stovky
