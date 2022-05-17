@@ -25,12 +25,20 @@ BYTE	01110001b	;F
 
 ; D - pouziva sa ako zobrazovane cisllo
 
+mvi D, 0
+
 Start:
+	mvi	C, 100
+	ldr	D, C
 	;Zobrazenie znaku na prvom displeji
 	mvi	A,1111b		;jednotka znamena vypnutie displeja
 	out	111101b,A		;vyslanie jednotiek na anody displejov (register U3)
 
-
+	mov	B, D
+	adi	B, 60
+	ldr	A, B
+	adi	A, 4
+	mmr	c, A
 	out	111110b,C		;vyslanie znaku na segmenty displejov (register U1)
 
 	mvi	A,1110b		;aktivny bude prvy displej (na A1/ posleme 0)
@@ -40,7 +48,11 @@ Start:
 	mvi	A,1111b		; jednotka znamena vypnutie displeja
 	out	111101b,A		;vyslanie jednotiek na anody displejov (register U3)
 
-
+	mov	B, D
+	adi	B, 40
+	ldr	A, B
+	adi	A, 4
+	mmr	c, A
 	out	111110b,C		;vyslanie znaku na segmenty displejov (register U1)
 
 	mvi	A,1101b		;aktivny bude druhy displej (na A2/ pošleme 0)
@@ -50,7 +62,11 @@ Start:
 	mvi	A,1111b		; jednotka znamena vypnutie displeja
 	out	1,A		;vyslanie jednotiek na anody displejov (register U3)
 
-
+	mov	B, D
+	adi	B, 20
+	ldr	A, B
+	adi	A, 4
+	mmr	c, A
 	out	111110b,C		;vyslanie znaku na segmenty displejov (register U1)
 
 	mvi	A,1011b		;aktivny bude druhy displej (na A2/ pošleme 0)
@@ -60,15 +76,16 @@ Start:
 	mvi	A,1111b		; jednotka znamena vypnutie displeja
 	out	111101b,A		;vyslanie jednotiek na anody displejov (register U3)
 
-
+	mov	B, D
+	ldr	A, B
+	adi	A, 4
+	mmr	c, A
 	out	111110b,C		;vyslanie znaku na segmenty displejov (register U1)
+	xor c, c
 
 	mvi	A,0111b		;aktivny bude druhy displej (na A2/ pošleme 0)
 	out	111101b,A		;vyslanie hodnot na anody displejov (register U3)
 
-	;mvi	A, 0
-	;mvi	B, 26
-	;str 	A, B
 	
 	;Klavesi -- overovanie klaves
 
@@ -146,6 +163,8 @@ NajdiKlavesuPrvyRiadok:
 	PokracujPrvy:
 	pop 	C
 	pop	A
+	mvi	C, 100
+	str	C, D
 	xor 	C, C
 	jmp OpakovatkoPrvyriadok ; skoci sa na opakovatko 
 		;lebo tento progam prebehne len v ram ci jedneho kliku viac krat a na konzolu by vypisalo n cisel
@@ -164,6 +183,8 @@ NajdiKlavesuDruhyRiadok:
 	PokracujDruhy:
 	pop 	C
 	pop	A
+	mvi	C, 100
+	str	C, D
 	xor 	C, C
 	jmp OpakovatkoDruhy
 
@@ -181,6 +202,8 @@ NajdiKlavesuTretiRiadok:
 	PokracujTreti:
 	pop 	C
 	pop	A
+	mvi	C, 100
+	str	C, D
 	xor 	C, C
 	jmp OpakovatkoTreti
 
@@ -198,6 +221,8 @@ NajdiKlavesuStvrtyRiadok:
 	PokracujStvrty:
 	pop 	C
 	pop	A
+	mvi	C, 100
+	str	C, D
 	xor 	C, C
 	jmp OpakovatkoStvrty
 
