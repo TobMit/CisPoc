@@ -153,18 +153,18 @@ NajdiKlavesuPrvyRiadok:
 NajdiKlavesuDruhyRiadok:
 	mmr 	b, c
 	cmp 	a, b
-	je PokracujDruhy
+	je KoniecLooDruhy
 	inc 	c
 	inc 	d
 	jne NajdiKlavesuDruhyRiadok
 
+	KoniecLooDruhy:
+	jmp PripocitajRiadok2
 	
 	PokracujDruhy:
-	sbi 	d,'0'
-	adi 	d, 4
-	mmr 	c,d
-	;out 01111b,c
-	;xor c,c ;vycistenie si indexi
+	pop 	C
+	pop	A
+	xor 	C, C
 	jmp OpakovatkoDruhy
 
 NajdiKlavesuTretiRiadok:
@@ -240,6 +240,120 @@ PripocitajRiadok1:
 	cmi 	C, 10	;porovnam ci desiadky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
 	jne Koniec
 
+
+PripocitajRiadok2:
+	pus	A
+	pus	C
+
+	mov 	A, D
+	ldr	C, A ;ziskame z RAM hodnoto jednotiek
+	inc 	C ; zvysime jednotky
+	str	A,C ; ulozime jednotky
+	cmi 	C, 10	;porovnam ci jedontky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
+	jne PokracujDruhy
+
+	mvi	C, 0 ; vynulujem jednotky
+	str	A, C ; ulozim jednotky
+	adi	A, 20 ; premapujeme na desiatky
+	ldr	C, A ; nacitam desiatky
+	inc 	C
+	str	A,C ; ulozime desiadky
+	cmi 	C, 10	;porovnam ci desiadky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
+	jne PokracujDruhy
+
+	mvi	C, 0 ; vynulujem desiadky
+	str	A, C ; ulozim desiadky
+	adi	A, 20 ; premapujeme na stovky
+	ldr	C, A ; nacitam stovky
+	inc 	C
+	str	A,C ; ulozime stovky
+	cmi 	C, 10	;porovnam ci stovky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
+	jne PokracujDruhy
+
+	mvi	C, 0 ; vynulujem stovky
+	str	A, C ; ulozim stovky
+	adi	A, 20 ; premapujeme na tisicky
+	ldr	C, A ; nacitam tisicky
+	inc 	C
+	str	A,C ; ulozime tisicky
+	cmi 	C, 10	;porovnam ci desiadky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
+	jne Koniec
+
+PripocitajRiadok3:
+	pus	A
+	pus	C
+
+	mov 	A, D
+	ldr	C, A ;ziskame z RAM hodnoto jednotiek
+	inc 	C ; zvysime jednotky
+	str	A,C ; ulozime jednotky
+	cmi 	C, 10	;porovnam ci jedontky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
+	jne PokracujPrvy
+
+	mvi	C, 0 ; vynulujem jednotky
+	str	A, C ; ulozim jednotky
+	adi	A, 20 ; premapujeme na desiatky
+	ldr	C, A ; nacitam desiatky
+	inc 	C
+	str	A,C ; ulozime desiadky
+	cmi 	C, 10	;porovnam ci desiadky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
+	jne PokracujPrvy
+
+	mvi	C, 0 ; vynulujem desiadky
+	str	A, C ; ulozim desiadky
+	adi	A, 20 ; premapujeme na stovky
+	ldr	C, A ; nacitam stovky
+	inc 	C
+	str	A,C ; ulozime stovky
+	cmi 	C, 10	;porovnam ci stovky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
+	jne PokracujPrvy
+
+	mvi	C, 0 ; vynulujem stovky
+	str	A, C ; ulozim stovky
+	adi	A, 20 ; premapujeme na tisicky
+	ldr	C, A ; nacitam tisicky
+	inc 	C
+	str	A,C ; ulozime tisicky
+	cmi 	C, 10	;porovnam ci desiadky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
+	jne Koniec
+
+PripocitajRiadok4:
+	pus	A
+	pus	C
+
+	mov 	A, D
+	ldr	C, A ;ziskame z RAM hodnoto jednotiek
+	inc 	C ; zvysime jednotky
+	str	A,C ; ulozime jednotky
+	cmi 	C, 10	;porovnam ci jedontky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
+	jne PokracujPrvy
+
+	mvi	C, 0 ; vynulujem jednotky
+	str	A, C ; ulozim jednotky
+	adi	A, 20 ; premapujeme na desiatky
+	ldr	C, A ; nacitam desiatky
+	inc 	C
+	str	A,C ; ulozime desiadky
+	cmi 	C, 10	;porovnam ci desiadky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
+	jne PokracujPrvy
+
+	mvi	C, 0 ; vynulujem desiadky
+	str	A, C ; ulozim desiadky
+	adi	A, 20 ; premapujeme na stovky
+	ldr	C, A ; nacitam stovky
+	inc 	C
+	str	A,C ; ulozime stovky
+	cmi 	C, 10	;porovnam ci stovky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
+	jne PokracujPrvy
+
+	mvi	C, 0 ; vynulujem stovky
+	str	A, C ; ulozim stovky
+	adi	A, 20 ; premapujeme na tisicky
+	ldr	C, A ; nacitam tisicky
+	inc 	C
+	str	A,C ; ulozime tisicky
+	cmi 	C, 10	;porovnam ci desiadky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
+	jne Koniec
 
 Koniec: 
 
