@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Board ver="1.1">
-  <View hValue="0.5057079266183981" vValue="0.4812557806757024" />
+  <View hValue="0.5059821913058709" vValue="0.48125985940400773" />
   <SchoolBreadboards>
     <SchoolBreadboard id="sb0">
       <gridX>66</gridX>
@@ -1147,39 +1147,6 @@
       </end>
       <Joints />
     </Wire>
-    <Wire color="0x666600ff">
-      <start>
-        <componentId>c1</componentId>
-        <socketId>413</socketId>
-      </start>
-      <end>
-        <componentId>c1</componentId>
-        <socketId>243</socketId>
-      </end>
-      <Joints />
-    </Wire>
-    <Wire color="0xcc8033ff">
-      <start>
-        <componentId>c0</componentId>
-        <socketId>2</socketId>
-      </start>
-      <end>
-        <componentId>c1</componentId>
-        <socketId>253</socketId>
-      </end>
-      <Joints />
-    </Wire>
-    <Wire color="0xcc8033ff">
-      <start>
-        <componentId>c1</componentId>
-        <socketId>558</socketId>
-      </start>
-      <end>
-        <componentId>c1</componentId>
-        <socketId>248</socketId>
-      </end>
-      <Joints />
-    </Wire>
     <Wire color="0x80b380ff">
       <start>
         <componentId>c1</componentId>
@@ -1221,6 +1188,61 @@
       <end>
         <componentId>c1</componentId>
         <socketId>518</socketId>
+      </end>
+      <Joints />
+    </Wire>
+    <Wire color="0x4d8080ff">
+      <start>
+        <componentId>c7</componentId>
+        <socketId>13</socketId>
+      </start>
+      <end>
+        <componentId>c0</componentId>
+        <socketId>2</socketId>
+      </end>
+      <Joints />
+    </Wire>
+    <Wire color="0x4d8080ff">
+      <start>
+        <componentId>c7</componentId>
+        <socketId>12</socketId>
+      </start>
+      <end>
+        <componentId>c0</componentId>
+        <socketId>3</socketId>
+      </end>
+      <Joints />
+    </Wire>
+    <Wire color="0x4d8080ff">
+      <start>
+        <componentId>c7</componentId>
+        <socketId>11</socketId>
+      </start>
+      <end>
+        <componentId>c0</componentId>
+        <socketId>4</socketId>
+      </end>
+      <Joints />
+    </Wire>
+    <Wire color="0x4d8080ff">
+      <start>
+        <componentId>c7</componentId>
+        <socketId>10</socketId>
+      </start>
+      <end>
+        <componentId>c0</componentId>
+        <socketId>5</socketId>
+      </end>
+      <Joints />
+    </Wire>
+    <Wire color="0x990000ff">
+      <start>
+        <componentId>c1</componentId>
+        <socketId>410</socketId>
+      </start>
+      <end>
+        <componentId>c1</componentId>
+        <socketId>99</socketId>
       </end>
       <Joints />
     </Wire>
