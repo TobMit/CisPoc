@@ -153,12 +153,12 @@ NajdiKlavesuPrvyRiadok:
 NajdiKlavesuDruhyRiadok:
 	mmr 	b, c
 	cmp 	a, b
-	je KoniecLooDruhy
+	je KoniecLoopDruhy
 	inc 	c
 	inc 	d
 	jne NajdiKlavesuDruhyRiadok
 
-	KoniecLooDruhy:
+	KoniecLoopDruhy:
 	jmp PripocitajRiadok2
 	
 	PokracujDruhy:
@@ -170,12 +170,12 @@ NajdiKlavesuDruhyRiadok:
 NajdiKlavesuTretiRiadok:
 	mmr 	b, c
 	cmp 	a, b
-	je KoniecLooTreti
+	je KoniecLoopTreti
 	inc 	c
 	inc 	d
 	jne NajdiKlavesuTretiRiadok
 
-	KoniecLooTreti:
+	KoniecLoopTreti:
 	jmp PripocitajRiadok3
 	
 	PokracujTreti:
@@ -187,18 +187,18 @@ NajdiKlavesuTretiRiadok:
 NajdiKlavesuStvrtyRiadok:
 	mmr 	b, c
 	cmp 	a, b
-	je PokracujStvrty
+	je KoniecLoopStvrty
 	inc 	c
 	inc 	d
 	jne NajdiKlavesuStvrtyRiadok
 
+	KoniecLoopStvrty:
+	jmp PripocitajRiadok4
 	
 	PokracujStvrty:
-	sbi 	d,'0'
-	adi 	d, 4
-	mmr 	c, d
-	;out 01111b,c
-	;xor c,c ;vycistenie si indexi
+	pop 	C
+	pop	A
+	xor 	C, C
 	jmp OpakovatkoStvrty
 
 
@@ -326,7 +326,7 @@ PripocitajRiadok4:
 	inc 	C ; zvysime jednotky
 	str	A,C ; ulozime jednotky
 	cmi 	C, 10	;porovnam ci jedontky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
-	jne PokracujPrvy
+	jne PokracujStvrty
 
 	mvi	C, 0 ; vynulujem jednotky
 	str	A, C ; ulozim jednotky
@@ -335,7 +335,7 @@ PripocitajRiadok4:
 	inc 	C
 	str	A,C ; ulozime desiadky
 	cmi 	C, 10	;porovnam ci desiadky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
-	jne PokracujPrvy
+	jne PokracujStvrty
 
 	mvi	C, 0 ; vynulujem desiadky
 	str	A, C ; ulozim desiadky
@@ -344,7 +344,7 @@ PripocitajRiadok4:
 	inc 	C
 	str	A,C ; ulozime stovky
 	cmi 	C, 10	;porovnam ci stovky presiahli 9 ak ano pokracujem podobnym sposobm s desiadkami
-	jne PokracujPrvy
+	jne PokracujStvrty
 
 	mvi	C, 0 ; vynulujem stovky
 	str	A, C ; ulozim stovky
