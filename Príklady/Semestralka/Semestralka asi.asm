@@ -34,7 +34,7 @@ Start:
 	mvi	A,1111b		;jednotka znamena vypnutie displeja
 	out	111101b,A		;vyslanie jednotiek na anody displejov (register U3)
 
-	mov	B, D
+	mov	B, D		;ziskanie cislo zo spravneho miesta pamete
 	adi	B, 60
 	ldr	A, B
 	adi	A, 4
@@ -58,7 +58,7 @@ Start:
 	mvi	A,1101b		;aktivny bude druhy displej (na A2/ pošleme 0)
 	out	111101b,A		;vyslanie hodnot na anody displejov (register U3)
 
-	;Zobrayenie znaku na tretom displeji
+	;Zobrazenie znaku na tretom displeji
 	mvi	A,1111b		; jednotka znamena vypnutie displeja
 	out	1,A		;vyslanie jednotiek na anody displejov (register U3)
 
@@ -72,7 +72,7 @@ Start:
 	mvi	A,1011b		;aktivny bude druhy displej (na A2/ pošleme 0)
 	out	111101b,A		;vyslanie hodnot na anody displejov (register U3)
 
-	;Zobrayenie znaku na stvrtom displeji
+	;Zobrazenie znaku na stvrtom displeji
 	mvi	A,1111b		; jednotka znamena vypnutie displeja
 	out	111101b,A		;vyslanie jednotiek na anody displejov (register U3)
 
@@ -163,7 +163,7 @@ NajdiKlavesuPrvyRiadok:
 	PokracujPrvy:
 	pop 	C
 	pop	A
-	mvi	C, 100
+	mvi	C, 100		;ulozi sa hodnota aktualnej klavesi
 	str	C, D
 	xor 	C, C
 	jmp OpakovatkoPrvyriadok ; skoci sa na opakovatko 
